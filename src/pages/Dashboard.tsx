@@ -6,7 +6,7 @@ import {
     LogOut, User, Activity, Calendar, Shield, Search,
     MapPin, Bell, Menu, X, Building2, MessageCircle,
     ArrowRight, Star, Zap, Droplets, Microscope,
-    Scan, Smile, CheckCircle2
+    Scan, Smile, CheckCircle2, FileText
 } from 'lucide-react';
 
 import DashboardHome from '../components/dashboard/DashboardHome';
@@ -15,6 +15,7 @@ import HospitalDetail from '../components/dashboard/HospitalDetail';
 import Appointments from '../components/dashboard/Appointments';
 import AIAssistant from '../components/dashboard/AIAssistant';
 import Profile from '../components/dashboard/Profile';
+import Documents from '../components/dashboard/Documents';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -58,6 +59,7 @@ const Dashboard = () => {
 
     const navItems = [
         { id: 'home', label: 'Home', icon: Activity, path: '/dashboard' },
+        { id: 'documents', label: 'Upload Documents', icon: FileText, path: '/dashboard/documents' },
         { id: 'hospitals', label: 'Find Hospitals', icon: Building2, path: '/dashboard/hospitals' },
         { id: 'appointments', label: 'My Appointments', icon: Calendar, path: '/dashboard/appointments' },
         { id: 'ai', label: 'AI Assistant', icon: MessageCircle, path: '/dashboard/ai-assistant' },
@@ -169,6 +171,7 @@ const Dashboard = () => {
                         <Route path="/hospitals/:id" element={<HospitalDetail />} />
                         <Route path="/appointments" element={<Appointments />} />
                         <Route path="/ai-assistant" element={<AIAssistant />} />
+                        <Route path="/documents" element={<Documents />} />
                         <Route path="/profile" element={<Profile />} />
                     </Routes>
                 </div>
