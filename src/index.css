@@ -13,16 +13,16 @@
 
 :root {
   --medical-blue: #0EA5E9;
-  --medical-teal: #14B8A6;
-  --medical-purple: #8B5CF6;
-  --bg-light: #F0F9FF;
+  --health-green: #22C55E;
+  --bg-soft-white: #F8FAFC;
+  --medical-cyan: #06B6D4;
   --text-dark: #0F172A;
   --text-body: #475569;
 }
 
 @layer base {
   body {
-    @apply font-jakarta bg-white text-medical-body leading-relaxed;
+    @apply font-jakarta bg-medical-bg text-medical-body leading-relaxed;
   }
 
   h1,
@@ -41,11 +41,11 @@
   }
 
   .btn-secondary {
-    @apply rounded-full bg-white text-medical-blue border border-medical-blue font-semibold py-3 px-8 transition-all hover:bg-medical-bg hover:scale-105 active:scale-95 flex items-center gap-2;
+    @apply rounded-full bg-white text-medical-blue border border-medical-blue font-semibold py-3 px-8 transition-all hover:bg-slate-50 hover:scale-105 active:scale-95 flex items-center gap-2;
   }
 
   .glass-card {
-    @apply bg-white rounded-2xl p-6 shadow-xl border border-sky-50 hover:scale-105 transition-all duration-300;
+    @apply bg-white rounded-2xl p-6 shadow-xl border border-slate-100 hover:scale-105 transition-all duration-300;
   }
 }
 

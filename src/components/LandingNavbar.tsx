@@ -24,18 +24,18 @@ export default function LandingNavbar({ onLogin, onSignUp }: { onLogin: () => vo
             <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
                 {/* Logo */}
                 <div className="flex items-center gap-2">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center">
+                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-medical-blue to-medical-green flex items-center justify-center">
                         <Cross size={18} className="text-white" strokeWidth={3} />
                     </div>
                     <span className="text-xl font-bold text-slate-900" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-                        Healthcare<span className="text-sky-500"> Hub</span>
+                        Healthcare<span className="text-medical-blue"> Hub</span>
                     </span>
                 </div>
 
                 {/* Desktop Links */}
                 <div className="hidden md:flex items-center gap-8">
                     {["Home", "Services", "About", "Contact"].map(l => (
-                        <a key={l} href="#" className="text-slate-600 hover:text-sky-500 font-medium transition-colors text-sm">
+                        <a key={l} href="#" className="text-slate-600 hover:text-medical-blue font-medium transition-colors text-sm">
                             {l}
                         </a>
                     ))}
@@ -43,10 +43,10 @@ export default function LandingNavbar({ onLogin, onSignUp }: { onLogin: () => vo
 
                 {/* Auth Buttons */}
                 <div className="hidden md:flex items-center gap-3">
-                    <button onClick={onLogin} className="px-5 py-2 rounded-full border-2 border-sky-500 text-sky-500 font-semibold text-sm hover:bg-sky-50 transition-all">
+                    <button onClick={onLogin} className="px-5 py-2 rounded-full border-2 border-medical-blue text-medical-blue font-semibold text-sm hover:bg-medical-bg transition-all">
                         Login
                     </button>
-                    <button onClick={onSignUp} className="px-5 py-2 rounded-full bg-gradient-to-r from-sky-500 to-teal-500 text-white font-semibold text-sm shadow-lg shadow-sky-200 hover:shadow-sky-300 hover:scale-105 transition-all">
+                    <button onClick={onSignUp} className="px-5 py-2 rounded-full bg-gradient-to-r from-medical-blue to-medical-green text-white font-semibold text-sm shadow-lg shadow-medical-blue/20 hover:shadow-medical-blue/30 hover:scale-105 transition-all">
                         Sign Up
                     </button>
                 </div>
@@ -70,8 +70,8 @@ export default function LandingNavbar({ onLogin, onSignUp }: { onLogin: () => vo
                             <a key={l} href="#" className="text-slate-700 font-medium">{l}</a>
                         ))}
                         <div className="flex gap-3 pt-2">
-                            <button onClick={() => { setOpen(false); onLogin(); }} className="flex-1 py-2 rounded-full border-2 border-sky-500 text-sky-500 font-semibold text-sm">Login</button>
-                            <button onClick={() => { setOpen(false); onSignUp(); }} className="flex-1 py-2 rounded-full bg-gradient-to-r from-sky-500 to-teal-500 text-white font-semibold text-sm">Sign Up</button>
+                            <button onClick={() => { setOpen(false); onLogin(); }} className="flex-1 py-2 rounded-full border-2 border-medical-blue text-medical-blue font-semibold text-sm">Login</button>
+                            <button onClick={() => { setOpen(false); onSignUp(); }} className="flex-1 py-2 rounded-full bg-gradient-to-r from-medical-blue to-medical-green text-white font-semibold text-sm">Sign Up</button>
                         </div>
                     </motion.div>
                 )}

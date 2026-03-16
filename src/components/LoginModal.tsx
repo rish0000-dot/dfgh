@@ -150,19 +150,19 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                         className="relative w-full max-w-md"
                     >
                         {/* Glow */}
-                        <div className="absolute -inset-1 bg-gradient-to-br from-sky-400 via-teal-400 to-violet-400 rounded-3xl blur-xl opacity-30" />
+                        <div className="absolute -inset-1 bg-gradient-to-br from-medical-blue via-medical-green to-medical-accent rounded-3xl blur-xl opacity-30" />
 
                         <div className="relative bg-white rounded-3xl shadow-2xl overflow-hidden">
                             {/* Top gradient bar */}
-                            <div className="h-1.5 w-full bg-gradient-to-r from-sky-500 via-teal-400 to-violet-500" />
+                            <div className="h-1.5 w-full bg-gradient-to-r from-medical-blue via-medical-green to-medical-accent" />
 
                             {/* Header */}
                             <div className="px-8 pt-8 pb-6 flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center">
+                                    <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-medical-blue to-medical-green flex items-center justify-center">
                                         <Cross size={14} className="text-white" strokeWidth={3} />
                                     </div>
-                                    <span className="font-bold text-slate-900">Healthcare <span className="text-sky-500">Hub</span></span>
+                                    <span className="font-bold text-slate-900">Healthcare <span className="text-medical-blue">Hub</span></span>
                                 </div>
                                 <button
                                     onClick={handleClose}
@@ -242,7 +242,7 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                                         value={email}
                                                         onChange={e => setEmail(e.target.value)}
                                                         autoComplete="off"
-                                                        className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none text-sm transition-colors bg-slate-50 focus:bg-white"
+                                                        className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-medical-blue focus:outline-none text-sm transition-colors bg-slate-50 focus:bg-white"
                                                     />
                                                 </div>
                                             </div>
@@ -257,12 +257,12 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                                         value={password}
                                                         onChange={e => setPassword(e.target.value)}
                                                         autoComplete="new-password"
-                                                        className="w-full pl-10 pr-12 py-3 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none text-sm transition-colors bg-slate-50 focus:bg-white"
+                                                        className="w-full pl-10 pr-12 py-3 rounded-2xl border-2 border-slate-200 focus:border-medical-blue focus:outline-none text-sm transition-colors bg-slate-50 focus:bg-white"
                                                     />
                                                     <button
                                                         type="button"
                                                         onClick={() => setShowPassword(!showPassword)}
-                                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors"
+                                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-medical-blue transition-colors"
                                                     >
                                                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                                     </button>
@@ -282,23 +282,23 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                                             checked={agreed}
                                                             onChange={e => setAgreed(e.target.checked)}
                                                         />
-                                                        I agree to the <a href="#" className="text-sky-500 font-semibold">Terms</a>
+                                                        I agree to the <a href="#" className="text-medical-blue font-semibold">Terms</a>
                                                     </label>
                                                 </div>
-                                                <a href="#" className="text-xs text-sky-500 font-semibold hover:text-sky-600">Forgot password?</a>
+                                                <a href="#" className="text-xs text-medical-blue font-semibold hover:text-medical-blue/80">Forgot password?</a>
                                             </div>
 
                                             <button
                                                 onClick={handleSubmit}
                                                 disabled={loading}
-                                                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-teal-500 text-white font-bold text-sm shadow-lg shadow-sky-200 hover:shadow-sky-300 hover:scale-[1.02] transition-all disabled:opacity-50"
+                                                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-medical-blue to-medical-green text-white font-bold text-sm shadow-lg shadow-medical-blue/20 hover:shadow-medical-blue/30 hover:scale-[1.02] transition-all disabled:opacity-50"
                                             >
                                                 {loading ? 'Processing...' : 'Login to Healthcare Hub'}
                                             </button>
 
                                             <p className="text-center text-xs text-slate-500">
                                                 Don't have an account?{" "}
-                                                <button onClick={() => setTab("signup")} className="text-sky-500 font-semibold hover:text-sky-600">Sign up free</button>
+                                                <button onClick={() => setTab("signup")} className="text-medical-blue font-semibold hover:text-medical-blue/80">Sign up free</button>
                                             </p>
                                         </>
                                     ) : (
@@ -328,11 +328,11 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                             <div className="grid grid-cols-2 gap-3">
                                                 <div className="flex flex-col gap-1">
                                                     <label className="text-xs font-semibold text-slate-600 ml-1">First Name</label>
-                                                    <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors" />
+                                                    <input type="text" placeholder="First Name" value={firstName} onChange={e => setFirstName(e.target.value)} className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-medical-blue focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors" />
                                                 </div>
                                                 <div className="flex flex-col gap-1">
                                                     <label className="text-xs font-semibold text-slate-600 ml-1">Last Name</label>
-                                                    <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors" />
+                                                    <input type="text" placeholder="Last Name" value={lastName} onChange={e => setLastName(e.target.value)} className="w-full px-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-medical-blue focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors" />
                                                 </div>
                                             </div>
 
@@ -340,7 +340,7 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                                 <label className="text-xs font-semibold text-slate-600 ml-1">Email Address</label>
                                                 <div className="relative">
                                                     <Mail size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                    <input type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} autoComplete="off" className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors" />
+                                                    <input type="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} autoComplete="off" className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-slate-200 focus:border-medical-blue focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors" />
                                                 </div>
                                             </div>
 
@@ -354,12 +354,12 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                                         value={password}
                                                         onChange={e => setPassword(e.target.value)}
                                                         autoComplete="new-password"
-                                                        className="w-full pl-10 pr-12 py-3 rounded-2xl border-2 border-slate-200 focus:border-sky-400 focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors"
+                                                        className="w-full pl-10 pr-12 py-3 rounded-2xl border-2 border-slate-200 focus:border-medical-blue focus:outline-none text-sm bg-slate-50 focus:bg-white transition-colors"
                                                     />
                                                     <button
                                                         type="button"
                                                         onClick={() => setShowPassword(!showPassword)}
-                                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-sky-500 transition-colors"
+                                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-medical-blue transition-colors"
                                                     >
                                                         {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                                     </button>
@@ -373,20 +373,20 @@ export default function LoginModal({ initialTab, onClose }: { initialTab: "login
                                                     checked={agreed}
                                                     onChange={e => setAgreed(e.target.checked)}
                                                 />
-                                                I agree to the <a href="#" className="text-sky-500 font-semibold">Terms of Service</a> and <a href="#" className="text-sky-500 font-semibold">Privacy Policy</a>
+                                                I agree to the <a href="#" className="text-medical-blue font-semibold">Terms of Service</a> and <a href="#" className="text-medical-blue font-semibold">Privacy Policy</a>
                                             </label>
 
                                             <button
                                                 onClick={handleSubmit}
                                                 disabled={loading}
-                                                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-sky-500 to-teal-500 text-white font-bold text-sm shadow-lg shadow-sky-200 hover:shadow-sky-300 hover:scale-[1.02] transition-all disabled:opacity-50"
+                                                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-medical-blue to-medical-green text-white font-bold text-sm shadow-lg shadow-medical-blue/20 hover:shadow-medical-blue/30 hover:scale-[1.02] transition-all disabled:opacity-50"
                                             >
                                                 {loading ? 'Processing...' : 'Create Free Account'}
                                             </button>
 
                                             <p className="text-center text-xs text-slate-500">
                                                 Already have an account?{" "}
-                                                <button onClick={() => setTab("login")} className="text-sky-500 font-semibold hover:text-sky-600">Login</button>
+                                                <button onClick={() => setTab("login")} className="text-medical-blue font-semibold hover:text-medical-blue/80">Login</button>
                                             </p>
                                         </>
                                     )}

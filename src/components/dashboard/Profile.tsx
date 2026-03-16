@@ -65,7 +65,7 @@ const Profile = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center h-full min-h-[400px]">
-                <Loader2 size={40} className="animate-spin text-sky-500" />
+                <Loader2 size={40} className="animate-spin text-medical-blue" />
             </div>
         );
     }
@@ -73,7 +73,7 @@ const Profile = () => {
     const firstName = profile?.first_name || email.split('@')[0] || 'User';
     const lastName = profile?.last_name || '';
     const phoneDisplay = profile?.phone || 'Not provided';
-    const usernameDisplay = profile?.username ? `@${profile.username}` : '';
+    const usernameDisplay = profile?.username ? profile.username : '';
 
     return (
         <div className="max-w-4xl mx-auto space-y-8 pb-20">
@@ -82,10 +82,10 @@ const Profile = () => {
                 <p className="text-slate-500 font-medium">Manage your personal information and preferences.</p>
             </div>
 
-            <div className="bg-white rounded-[3rem] border border-slate-100 shadow-xl shadow-sky-900/5 p-10">
+            <div className="bg-white rounded-[3rem] border border-slate-100 shadow-xl shadow-medical-blue/5 p-10">
                 <div className="flex flex-col md:flex-row items-center gap-10">
                     <div className="relative group">
-                        <div className="w-32 h-32 rounded-[2.5rem] bg-gradient-to-br from-sky-400 to-teal-400 flex items-center justify-center text-white text-4xl font-black shadow-xl shadow-sky-500/20 overflow-hidden">
+                        <div className="w-32 h-32 rounded-[2.5rem] bg-gradient-to-br from-medical-blue to-medical-green flex items-center justify-center text-white text-4xl font-black shadow-xl shadow-medical-blue/20 overflow-hidden">
                             {profile?.avatar_url ? (
                                 <img src={profile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
                             ) : (
@@ -105,8 +105,8 @@ const Profile = () => {
                             <h2 className="text-3xl font-black text-slate-900">
                                 {firstName} {lastName}
                             </h2>
-                            {usernameDisplay && (
-                                <span className="text-sm font-bold text-sky-500 bg-sky-50 px-3 py-1 rounded-xl">
+                             {usernameDisplay && (
+                                <span className="text-sm font-bold text-medical-blue bg-medical-blue/10 px-3 py-1 rounded-xl">
                                     {usernameDisplay}
                                 </span>
                             )}
@@ -117,9 +117,9 @@ const Profile = () => {
                         </p>
                         
                         <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-3">
-                            <button 
+                             <button 
                                 onClick={() => setShowEditModal(true)}
-                                className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider hover:bg-sky-600 transition-all"
+                                className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-wider hover:bg-medical-blue transition-all"
                             >
                                 <Edit3 size={14} /> Edit Profile
                             </button>
@@ -138,8 +138,8 @@ const Profile = () => {
                 <div className="bg-white rounded-[2.5rem] border border-slate-100 p-8 space-y-6">
                     <h3 className="text-xl font-black text-slate-900 tracking-tight">Contact Information</h3>
                     <div className="space-y-4">
-                        <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 border border-slate-100/50">
-                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-sky-500 shadow-sm">
+                         <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 border border-slate-100/50">
+                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-medical-blue shadow-sm">
                                 <Mail size={18} />
                             </div>
                             <div className="flex-1 overflow-hidden">
@@ -147,8 +147,8 @@ const Profile = () => {
                                 <p className="font-bold text-slate-700 text-sm truncate">{email}</p>
                             </div>
                         </div>
-                        <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 border border-slate-100/50">
-                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-teal-500 shadow-sm">
+                         <div className="flex items-center gap-4 p-4 rounded-3xl bg-slate-50 border border-slate-100/50">
+                            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-medical-green shadow-sm">
                                 <Phone size={18} />
                             </div>
                             <div>
@@ -167,15 +167,15 @@ const Profile = () => {
                             { label: 'Dark Mode', icon: <Moon size={18} />, color: 'text-violet-500', enabled: false },
                             { label: 'Privacy Policy', icon: <Shield size={18} />, color: 'text-teal-500', enabled: null },
                         ].map((item) => (
-                            <div key={item.label} className="flex items-center justify-between p-4 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-sky-200 transition-all cursor-pointer">
+                             <div key={item.label} className="flex items-center justify-between p-4 rounded-3xl bg-slate-50 border border-slate-100/50 group hover:border-medical-blue/30 transition-all cursor-pointer">
                                 <div className="flex items-center gap-4">
                                     <div className={`w-10 h-10 rounded-xl bg-white flex items-center justify-center ${item.color} shadow-sm group-hover:scale-110 transition-transform`}>
                                         {item.icon}
                                     </div>
                                     <span className="font-bold text-slate-700 text-sm">{item.label}</span>
                                 </div>
-                                {item.enabled !== null ? (
-                                    <div className={`w-12 h-6 rounded-full p-1 transition-colors ${item.enabled ? 'bg-sky-500' : 'bg-slate-200'}`}>
+                                 {item.enabled !== null ? (
+                                    <div className={`w-12 h-6 rounded-full p-1 transition-colors ${item.enabled ? 'bg-medical-blue' : 'bg-slate-200'}`}>
                                         <div className={`w-4 h-4 bg-white rounded-full transition-transform ${item.enabled ? 'translate-x-6' : 'translate-x-0'}`}></div>
                                     </div>
                                 ) : (

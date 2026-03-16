@@ -58,8 +58,8 @@ export default function EditProfileModal({ onClose, currentProfile, onProfileUpd
 
     const validateForm = () => {
         if (!firstName.trim()) return "First name is required.";
-        if (username && !/^[a-zA-Z0-9_]{3,20}$/.test(username)) {
-            return "Username must be 3-20 characters long and contain only letters, numbers, and underscores.";
+        if (username && !/^[A-Za-z0-9_]+@[0-9]+$/.test(username)) {
+            return "ID must format like 'username@123' (letters/numbers/underscores followed by @ and numbers only).";
         }
         if (phone && !/^\+?[0-9\s\-()]{7,20}$/.test(phone)) {
             return "Please enter a valid phone number.";
@@ -110,7 +110,7 @@ export default function EditProfileModal({ onClose, currentProfile, onProfileUpd
                     id: user.id,
                     first_name: firstName.trim(),
                     last_name: lastName.trim(),
-                    username: username.trim() || null,
+                    username: username.trim().toLowerCase() || null,
                     phone: phone.trim() || null,
                     avatar_url: avatarUrl,
                 });
@@ -124,6 +124,7 @@ export default function EditProfileModal({ onClose, currentProfile, onProfileUpd
 
             // Success
             onProfileUpdate();
+            window.dispatchEvent(new Event('profile-updated'));
             handleClose();
 
         } catch (err: any) {
@@ -234,15 +235,14 @@ export default function EditProfileModal({ onClose, currentProfile, onProfileUpd
                                 </div>
 
                                 <div className="flex flex-col gap-1.5">
-                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Username</label>
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Unique ID</label>
                                     <div className="relative">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">@</span>
                                         <input
                                             type="text"
                                             value={username}
                                             onChange={e => setUsername(e.target.value)}
-                                            className="w-full pl-10 pr-4 py-3 rounded-2xl border-2 border-slate-100 focus:border-sky-400 focus:outline-none text-sm transition-colors bg-slate-50 focus:bg-white font-medium"
-                                            placeholder="username123"
+                                            className="w-full px-4 py-3 rounded-2xl border-2 border-slate-100 focus:border-sky-400 focus:outline-none text-sm transition-colors bg-slate-50 focus:bg-white font-medium"
+                                            placeholder="username@123"
                                         />
                                     </div>
                                 </div>

@@ -18,7 +18,7 @@ export default function Stats() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="py-24 bg-gradient-to-r from-sky-600 via-sky-500 to-teal-500"
+            className="py-24 bg-gradient-to-r from-medical-blue to-medical-green"
         >
             <div className="max-w-7xl mx-auto px-6">
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -35,7 +35,7 @@ export default function Stats() {
                             <div className="text-4xl font-bold text-white uppercase italic" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                                 {s.value}
                             </div>
-                            <div className="text-sky-100 font-medium text-sm">{s.label}</div>
+                            <div className="text-white/80 font-medium text-sm">{s.label}</div>
                         </motion.div>
                     ))}
                 </div>

@@ -18,32 +18,32 @@ const features = [
     {
         icon: <MapPin size={28} />, title: "Smart Location Detection",
         desc: "We automatically detect your location and show nearby hospitals within seconds.",
-        color: "from-sky-400 to-sky-600",
+        color: "from-medical-blue to-medical-accent",
     },
     {
         icon: <Search size={28} />, title: "Condition-Based Search",
         desc: "Search by symptom or condition — X-ray, MRI, Blood Test, Cardiac Care & more.",
-        color: "from-teal-400 to-teal-600",
+        color: "from-medical-green to-medical-accent",
     },
     {
         icon: <span className="text-xl font-black text-white">$</span>, title: "Transparent Pricing",
         desc: "See exact prices for every service upfront. No hidden fees, ever. Guaranteed.",
-        color: "from-emerald-400 to-emerald-600",
+        color: "from-medical-green to-medical-blue",
     },
     {
         icon: <Hospital size={28} />, title: "Verified Hospital Profiles",
         desc: "View detailed hospital info, facilities, ratings, and available departments.",
-        color: "from-indigo-400 to-indigo-600",
+        color: "from-medical-blue to-medical-green",
     },
     {
         icon: <Stethoscope size={28} />, title: "Doctor Directory & Booking",
         desc: "Browse doctor profiles and specialties, then book instant appointments.",
-        color: "from-pink-400 to-pink-600",
+        color: "from-medical-accent to-medical-blue",
     },
     {
         icon: <Brain size={28} />, title: "AI Health Assistant",
         desc: "Our AI analyzes your symptoms and recommends the right hospital & service.",
-        color: "from-violet-400 to-violet-600",
+        color: "from-medical-accent to-medical-green",
     },
 ];
 
@@ -57,11 +57,11 @@ export default function Features() {
             variants={stagger}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            className="py-32 bg-gradient-to-b from-[#F0F9FF] to-white"
+            className="py-32 bg-white"
         >
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
-                    <FadeUp><span className="text-sky-500 font-semibold text-sm uppercase tracking-widest">Key Features</span></FadeUp>
+                    <FadeUp><span className="text-medical-blue font-semibold text-sm uppercase tracking-widest">Key Features</span></FadeUp>
                     <FadeUp delay={0.1}>
                         <h2 className="text-4xl font-bold text-slate-900 mt-3" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             Everything You Need in One Platform

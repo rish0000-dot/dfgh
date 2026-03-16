@@ -16,12 +16,16 @@ import Appointments from '../components/dashboard/Appointments';
 import AIAssistant from '../components/dashboard/AIAssistant';
 import Profile from '../components/dashboard/Profile';
 import Documents from '../components/dashboard/Documents';
+import PublicProfile from './PublicProfile';
+import { supabase } from '../lib/supabase';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [userProfile, setUserProfile] = useState<any>(null);
 
     const userStr = localStorage.getItem('user');
     let user = null;
@@ -45,11 +49,31 @@ const Dashboard = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const fetchProfile = async () => {
+        if (user?.id) {
+            const { data } = await supabase.from('profiles').select('username, avatar_url, first_name').eq('id', user.id).single();
+            if (data) setUserProfile(data);
+        }
+    };
+
     useEffect(() => {
         if (!localStorage.getItem('token')) {
             navigate('/');
+        } else {
+            fetchProfile();
         }
-    }, [navigate]);
+
+        window.addEventListener('profile-updated', fetchProfile);
+        return () => window.removeEventListener('profile-updated', fetchProfile);
+    }, [navigate, user?.id]);
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate(`/dashboard/user/${searchQuery.trim()}`);
+            setSearchQuery('');
+        }
+    };
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -81,7 +105,7 @@ const Dashboard = () => {
             >
                 <div className="p-8 w-[280px]">
                     <div className="flex items-center gap-3 mb-12">
-                        <div className="w-10 h-10 bg-sky-500 rounded-xl flex items-center justify-center shadow-lg shadow-sky-500/20">
+                        <div className="w-10 h-10 bg-medical-blue rounded-xl flex items-center justify-center shadow-lg shadow-medical-blue/20">
                             <Activity className="text-white" size={24} />
                         </div>
                         <span className="text-xl font-black tracking-tighter">HealthConnect</span>
@@ -93,7 +117,7 @@ const Dashboard = () => {
                                 key={item.id}
                                 onClick={() => navigate(item.path)}
                                 className={`w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-all font-bold text-sm ${currentTab === item.id
-                                        ? 'bg-sky-600 text-white shadow-xl shadow-sky-600/20'
+                                        ? 'bg-medical-blue text-white shadow-xl shadow-medical-blue/20'
                                         : 'text-slate-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
@@ -129,20 +153,26 @@ const Dashboard = () => {
                         <div className="hidden md:block">
                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-0.5 leading-none">Your Location</p>
                             <div className="flex items-center gap-1.5 cursor-pointer group">
-                                <MapPin size={14} className="text-sky-500" />
-                                <span className="text-xs font-black text-slate-900 group-hover:text-sky-600 transition-colors">Delhi, India</span>
-                                <span className="text-[10px] bg-sky-50 text-sky-600 px-1.5 py-0.5 rounded font-black uppercase">Change</span>
+                                <MapPin size={14} className="text-medical-blue" />
+                                <span className="text-xs font-black text-slate-900 group-hover:text-medical-blue transition-colors">Delhi, India</span>
+                                <span className="text-[10px] bg-medical-blue/10 text-medical-blue px-1.5 py-0.5 rounded font-black uppercase">Change</span>
                             </div>
                         </div>
                     </div>
 
                     <div className="flex items-center gap-3 lg:gap-6">
-                        <div className="hidden sm:flex items-center gap-3 px-4 py-2 bg-slate-50 rounded-2xl border border-slate-100">
-                            <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-sky-500 shadow-sm">
+                        <form onSubmit={handleSearch} className="hidden sm:flex items-center gap-3 px-4 py-2 bg-slate-50 rounded-2xl border border-slate-100 focus-within:border-medical-blue focus-within:bg-white transition-all">
+                            <button type="submit" className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-medical-blue shadow-sm hover:scale-105 transition-transform">
                                 <Search size={16} />
-                            </div>
-                            <span className="text-xs font-bold text-slate-500 pr-4">Global Search...</span>
-                        </div>
+                            </button>
+                            <input 
+                                type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                placeholder="Search user ID (e.g. alok@123)..."
+                                className="text-xs font-bold text-slate-700 bg-transparent focus:outline-none w-48 placeholder:text-slate-400"
+                            />
+                        </form>
 
                         <div className="h-10 w-[1px] bg-slate-100 mx-2 hidden lg:block"></div>
 
@@ -153,11 +183,19 @@ const Dashboard = () => {
 
                         <div className="flex items-center gap-3 pl-2 sm:pl-4 group cursor-pointer" onClick={() => navigate('/dashboard/profile')}>
                             <div className="hidden text-right lg:block">
-                                <p className="text-xs font-black text-slate-900 leading-none mb-1">{firstName}</p>
-                                <p className="text-[10px] font-bold text-teal-600 leading-none">ID: HEALTH-2024</p>
+                                <p className="text-xs font-black text-slate-900 leading-none mb-1">
+                                    {userProfile?.first_name || firstName}
+                                </p>
+                                <p className="text-[10px] font-bold text-medical-green leading-none">
+                                    {userProfile?.username ? `ID: ${userProfile.username}` : 'Update Profile to get ID'}
+                                </p>
                             </div>
-                            <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-[1.2rem] bg-gradient-to-br from-sky-400 to-teal-400 border-2 border-white shadow-lg overflow-hidden flex items-center justify-center text-white font-black text-sm group-hover:scale-105 group-hover:shadow-sky-200 transition-all">
-                                {firstName?.[0] || 'U'}
+                            <div className="w-10 h-10 lg:w-11 lg:h-11 rounded-[1.2rem] bg-gradient-to-br from-medical-blue to-medical-green border-2 border-white shadow-lg overflow-hidden flex items-center justify-center text-white font-black text-sm group-hover:scale-105 group-hover:shadow-medical-blue/20 transition-all">
+                                {userProfile?.avatar_url ? (
+                                    <img src={userProfile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                ) : (
+                                    firstName?.[0] || 'U'
+                                )}
                             </div>
                         </div>
                     </div>
@@ -173,6 +211,7 @@ const Dashboard = () => {
                         <Route path="/ai-assistant" element={<AIAssistant />} />
                         <Route path="/documents" element={<Documents />} />
                         <Route path="/profile" element={<Profile />} />
+                        <Route path="/user/:uniqueId" element={<PublicProfile />} />
                     </Routes>
                 </div>
 
@@ -182,7 +221,7 @@ const Dashboard = () => {
                         <button
                             key={item.id}
                             onClick={() => navigate(item.path)}
-                            className={`flex flex-col items-center gap-1 p-2 rounded-2xl transition-all ${currentTab === item.id ? 'text-sky-600' : 'text-slate-400'
+                            className={`flex flex-col items-center gap-1 p-2 rounded-2xl transition-all ${currentTab === item.id ? 'text-medical-blue' : 'text-slate-400'
                                 }`}
                         >
                             <item.icon size={22} className={currentTab === item.id ? 'scale-110' : ''} />

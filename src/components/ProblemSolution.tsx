@@ -35,13 +35,13 @@ export default function ProblemSolution() {
             variants={stagger}
             initial="hidden"
             animate={inView ? "show" : "hidden"}
-            className="py-32 bg-white"
+            className="py-32 bg-medical-bg"
         >
             <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
                 {/* Left */}
                 <FadeUp>
                     <div className="relative">
-                        <div className="w-full aspect-square max-w-md mx-auto bg-gradient-to-br from-slate-100 to-slate-50 rounded-3xl flex items-center justify-center border border-slate-200 shadow-xl">
+                        <div className="w-full aspect-square max-w-md mx-auto bg-white rounded-3xl flex items-center justify-center border border-slate-200 shadow-xl">
                             <div className="text-center p-8">
                                 <div className="text-8xl mb-4">😕</div>
                                 <p className="text-slate-600 font-medium">Every patient has been here before...</p>
@@ -61,12 +61,12 @@ export default function ProblemSolution() {
                 {/* Right */}
                 <div className="flex flex-col gap-6">
                     <FadeUp>
-                        <span className="text-teal-500 font-semibold text-sm uppercase tracking-widest">The Solution</span>
+                        <span className="text-medical-green font-semibold text-sm uppercase tracking-widest">The Solution</span>
                     </FadeUp>
                     <FadeUp delay={0.1}>
                         <h2 className="text-4xl font-bold text-slate-900" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             Stop Searching.{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-500 to-sky-500">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-medical-green to-medical-blue">
                                 Start Healing.
                             </span>
                         </h2>
@@ -83,9 +83,9 @@ export default function ProblemSolution() {
                                 key={s}
                                 variants={fadeUp}
                                 transition={{ delay: 0.2 + i * 0.1 }}
-                                className="flex items-start gap-4 p-4 bg-gradient-to-r from-teal-50 to-sky-50 rounded-2xl border border-teal-100 hover:shadow-md transition-shadow"
+                                className="flex items-start gap-4 p-4 bg-white rounded-2xl border border-medical-green/20 hover:shadow-md transition-shadow"
                             >
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-teal-400 to-sky-400 flex items-center justify-center flex-shrink-0 shadow">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-medical-green to-medical-blue flex items-center justify-center flex-shrink-0 shadow">
                                     <CheckCircle size={16} className="text-white" />
                                 </div>
                                 <span className="text-slate-700 font-medium leading-relaxed">{s}</span>

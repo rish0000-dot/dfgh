@@ -34,7 +34,7 @@ export default function HowItWorks() {
         >
             <div className="max-w-7xl mx-auto px-6">
                 <div className="text-center mb-16">
-                    <FadeUp><span className="text-sky-500 font-semibold text-sm uppercase tracking-widest">Process</span></FadeUp>
+                    <FadeUp><span className="text-medical-blue font-semibold text-sm uppercase tracking-widest">Process</span></FadeUp>
                     <FadeUp delay={0.1}>
                         <h2 className="text-4xl font-bold text-slate-900 mt-3" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
                             How It Works in 3 Simple Steps
@@ -43,13 +43,13 @@ export default function HowItWorks() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-                    <div className="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-sky-300 via-teal-300 to-sky-300" style={{ width: "50%", left: "25%" }} />
+                    <div className="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-medical-blue/30 via-medical-green/30 to-medical-blue/30" style={{ width: "50%", left: "25%" }} />
 
                     {steps.map((s, i) => (
                         <FadeUp key={s.title} delay={i * 0.15}>
                             <div className="relative flex flex-col items-center text-center gap-4 p-8">
                                 <div className="relative">
-                                    <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-sky-500 to-teal-500 flex items-center justify-center text-white shadow-xl shadow-sky-200 rotate-3 hover:rotate-0 transition-transform duration-300">
+                                    <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-medical-blue to-medical-green flex items-center justify-center text-white shadow-xl shadow-medical-blue/20 rotate-3 hover:rotate-0 transition-transform duration-300">
                                         {s.icon}
                                     </div>
                                     <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-slate-900 text-white text-xs font-bold flex items-center justify-center">

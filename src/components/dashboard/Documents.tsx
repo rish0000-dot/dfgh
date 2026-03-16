@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
     FileText, Upload, Plus, Calendar, Image as ImageIcon, 
-    File, Trash2, Send, Loader2,
-    Download, AlertCircle, X, ChevronRight, MessageSquare,
+    File, Trash2, Send, Loader2, Download,
+    AlertCircle, X, ChevronRight, MessageSquare,
     Edit3, History, ArrowLeftRight, Clock
 } from "lucide-react";
 import { supabase } from "../../lib/supabase";
@@ -83,6 +83,24 @@ const Documents = () => {
     const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
     const [error, setError] = useState("");
     const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleDownload = async (fileUrl: string, fileName: string) => {
+        try {
+            const response = await fetch(fileUrl);
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = fileName;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error("Download failed:", err);
+            window.open(fileUrl, '_blank');
+        }
+    };
 
     const fetchDocuments = async () => {
         try {
@@ -292,7 +310,7 @@ const Documents = () => {
     if (loading && documents.length === 0) {
         return (
             <div className="flex items-center justify-center h-full min-h-[400px]">
-                <Loader2 size={40} className="animate-spin text-sky-500" />
+                <Loader2 size={40} className="animate-spin text-medical-blue" />
             </div>
         );
     }
@@ -302,14 +320,14 @@ const Documents = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <div>
                     <h1 className="text-3xl font-black text-slate-900 tracking-tight flex items-center gap-3">
-                        <FileText className="text-sky-500" size={32} />
+                        <FileText className="text-medical-blue" size={32} />
                         Medical Documents
                     </h1>
                     <p className="text-slate-500 font-medium">Upload, edit and track history of your medical records.</p>
                 </div>
                 <button
                     onClick={() => setShowUploadModal(true)}
-                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-[1.5rem] bg-slate-900 text-white font-black text-sm uppercase tracking-wider hover:bg-sky-600 transition-all shadow-xl shadow-slate-900/10"
+                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-[1.5rem] bg-slate-900 text-white font-black text-sm uppercase tracking-wider hover:bg-medical-blue/80 transition-all shadow-xl shadow-slate-900/10"
                 >
                     <Plus size={20} /> New Upload
                 </button>
@@ -331,7 +349,7 @@ const Documents = () => {
                                     onClick={() => setSelectedDate(date)}
                                     className={`flex items-center justify-between gap-4 px-5 py-4 rounded-2xl transition-all border shrink-0 ${
                                         selectedDate === date
-                                            ? 'bg-white border-sky-100 text-sky-600 shadow-lg shadow-sky-500/10'
+                                            ? 'bg-white border-medical-blue/20 text-medical-blue shadow-lg shadow-medical-blue/10'
                                             : 'bg-transparent border-transparent text-slate-500 hover:bg-slate-50'
                                     }`}
                                 >
@@ -350,7 +368,7 @@ const Documents = () => {
 
                 {/* Content Area */}
                 <div className="lg:col-span-9 space-y-8">
-                    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-sky-900/5 p-8">
+                    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-medical-blue/5 p-8">
                         {selectedDate && (
                             <div className="mb-8 flex items-center justify-between">
                                 <h2 className="text-xl font-black text-slate-900">
@@ -379,13 +397,13 @@ const Documents = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         key={doc.id}
-                                        className="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-sky-200 transition-all group"
+                                        className="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-medical-blue/30 transition-all group"
                                     >
                                         <div className="flex items-start justify-between gap-4">
                                             <div className="flex-1 space-y-4">
                                                 {doc.text_content && (
                                                     <div className="flex gap-3">
-                                                        <MessageSquare size={18} className="text-sky-500 shrink-0 mt-1" />
+                                                        <MessageSquare size={18} className="text-medical-blue shrink-0 mt-1" />
                                                         <p className="text-slate-700 text-sm font-medium leading-relaxed">
                                                             {doc.text_content}
                                                         </p>
@@ -395,8 +413,8 @@ const Documents = () => {
                                                 {doc.attachments && doc.attachments.length > 0 && (
                                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
                                                         {doc.attachments.map((attach) => (
-                                                            <div key={attach.id} className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-slate-200/50 hover:border-sky-200 transition-all">
-                                                                <div className="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center text-sky-500 shrink-0">
+                                                            <div key={attach.id} className="flex items-center gap-3 p-3 rounded-2xl bg-white border border-slate-200/50 hover:border-medical-blue/30 transition-all">
+                                                                <div className="w-10 h-10 rounded-xl bg-medical-blue/10 flex items-center justify-center text-medical-blue shrink-0">
                                                                     {attach.file_type?.startsWith('image/') ? <ImageIcon size={20} /> : <File size={20} />}
                                                                 </div>
                                                                 <div className="flex-1 min-w-0">
@@ -407,15 +425,24 @@ const Documents = () => {
                                                                         {attach.file_type?.split('/')[1] || 'File'}
                                                                     </p>
                                                                 </div>
-                                                                <a
-                                                                    href={attach.file_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    className="p-2 rounded-xl bg-slate-50 text-slate-400 hover:text-sky-500 hover:bg-sky-50 transition-all"
-                                                                    title="Download"
-                                                                >
-                                                                    <Download size={14} />
-                                                                </a>
+                                                                    <div className="flex gap-2">
+                                                                        <a
+                                                                            href={attach.file_url}
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="p-2 rounded-xl bg-slate-50 text-slate-400 hover:text-medical-blue hover:bg-medical-blue/5 transition-all"
+                                                                            title="View File"
+                                                                        >
+                                                                            <FileText size={14} />
+                                                                        </a>
+                                                                        <button
+                                                                            onClick={() => handleDownload(attach.file_url, attach.file_name)}
+                                                                            className="p-2 rounded-xl bg-slate-50 text-slate-400 hover:text-medical-blue hover:bg-medical-blue/5 transition-all"
+                                                                            title="Download File"
+                                                                        >
+                                                                            <Download size={14} />
+                                                                        </button>
+                                                                    </div>
                                                             </div>
                                                         ))}
                                                     </div>
@@ -454,7 +481,7 @@ const Documents = () => {
                     {selectedDate && history.length > 0 && (
                         <div className="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-xl shadow-slate-900/20">
                             <div className="flex items-center gap-3 mb-8">
-                                <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-sky-400">
+                                <div className="w-10 h-10 rounded-2xl bg-white/10 flex items-center justify-center text-medical-blue">
                                     <History size={20} />
                                 </div>
                                 <div>
@@ -509,7 +536,7 @@ const Documents = () => {
                         >
                             <div className="p-8 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
                                 <div className="flex items-center gap-3">
-                                    <div className="w-10 h-10 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-sky-500 shadow-sm">
+                                    <div className="w-10 h-10 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-medical-blue shadow-sm">
                                         <Upload size={20} />
                                     </div>
                                     <div>
@@ -542,7 +569,7 @@ const Documents = () => {
                                         value={textContent}
                                         onChange={(e) => setTextContent(e.target.value)}
                                         placeholder="Add context to this upload (e.g., 'Met with Dr. Smith, blood test results')"
-                                        className="w-full h-32 p-4 rounded-3xl border-2 border-slate-100 focus:border-sky-400 focus:outline-none text-sm transition-all bg-slate-50 focus:bg-white resize-none font-medium"
+                                        className="w-full h-32 p-4 rounded-3xl border-2 border-slate-100 focus:border-medical-blue focus:outline-none text-sm transition-all bg-slate-50 focus:bg-white resize-none font-medium"
                                     />
                                 </div>
 
@@ -552,8 +579,8 @@ const Documents = () => {
                                         onClick={() => fileInputRef.current?.click()}
                                         className={`group relative w-full min-h-[120px] rounded-3xl border-2 border-dashed transition-all flex flex-col items-center justify-center cursor-pointer p-4 ${
                                             selectedFiles.length > 0
-                                                ? 'bg-sky-50 border-sky-400'
-                                                : 'bg-slate-50 border-slate-200 hover:border-sky-300 hover:bg-sky-50/30'
+                                                ? 'bg-medical-blue/5 border-medical-blue/30'
+                                                : 'bg-slate-50 border-slate-200 hover:border-medical-blue/50 hover:bg-medical-blue/10'
                                         }`}
                                     >
                                         <input
@@ -564,7 +591,7 @@ const Documents = () => {
                                             accept="image/*,application/pdf"
                                             multiple
                                         />
-                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-sky-500 transition-colors shadow-sm mb-2">
+                                        <div className="w-10 h-10 rounded-xl bg-white border border-slate-100 flex items-center justify-center text-slate-400 group-hover:text-medical-blue transition-colors shadow-sm mb-2">
                                             <Upload size={20} />
                                         </div>
                                         <p className="text-xs font-bold text-slate-400 group-hover:text-slate-600 transition-colors">Click to Add Images or PDFs</p>
@@ -575,7 +602,7 @@ const Documents = () => {
                                         <div className="grid grid-cols-2 gap-2 mt-4">
                                             {selectedFiles.map((file, idx) => (
                                                 <div key={idx} className="flex items-center gap-2 p-2 rounded-xl bg-slate-50 border border-slate-200">
-                                                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-sky-500 shrink-0">
+                                                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-medical-blue shrink-0">
                                                         {file.type.startsWith('image/') ? <ImageIcon size={14} /> : <File size={14} />}
                                                     </div>
                                                     <p className="text-[10px] font-bold text-slate-700 truncate flex-1">{file.name}</p>
@@ -607,7 +634,7 @@ const Documents = () => {
                                     <button
                                         type="submit"
                                         disabled={uploading}
-                                        className="flex-[2] py-4 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-widest hover:bg-sky-600 transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2 disabled:opacity-50"
+                                        className="flex-[2] py-4 rounded-2xl bg-slate-900 text-white font-black text-xs uppercase tracking-widest hover:bg-medical-blue/80 transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-2 disabled:opacity-50"
                                     >
                                         {uploading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                                         {uploading ? 'Uploading...' : `Upload ${selectedFiles.length > 0 ? selectedFiles.length + ' Files' : 'Record'}`}
